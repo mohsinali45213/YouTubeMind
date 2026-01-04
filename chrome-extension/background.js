@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     
     // Set default settings
     chrome.storage.sync.set({
-      backendUrl: 'https://youtubemind.onrender.com',
+      backendUrl: 'http://localhost:8000',
       language: 'en'
     });
     

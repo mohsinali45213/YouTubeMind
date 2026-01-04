@@ -83,6 +83,7 @@ def get_languages(code):
         "zh": "Chinese",
         "ja": "Japanese",
         "ko": "Korean",
+        "hi": "Hindi"
         # Add more language codes and names as needed
     }
     return language_map.get(code)

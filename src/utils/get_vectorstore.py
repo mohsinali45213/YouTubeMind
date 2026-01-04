@@ -4,7 +4,7 @@ from src.models.model import embeddings
 def get_vectorstore(video_id: str, chunks):
   try:
     vectorstore = Chroma(
-        collection_name=video_id,
+        collection_name=f"yt-{video_id}",
         embedding_function=embeddings,
         persist_directory="chroma_db"
     )
@@ -22,7 +22,7 @@ def get_vectorstore(video_id: str, chunks):
           documents=chunks,
           embedding=embeddings,
           persist_directory="chroma_db",
-          collection_name=video_id
+          collection_name=f"yt-{video_id}"
       )
   return vectorstore
 
