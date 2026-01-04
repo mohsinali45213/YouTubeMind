@@ -16,7 +16,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     
     // Open welcome page or instructions
     chrome.tabs.create({
-      url: 'https://github.com/mohsinali45213/TubeMind'
+      url: 'https://github.com/mohsinali45213/YouTubeMind'
     });
   } else if (details.reason === 'update') {
     console.log('Extension updated');

@@ -1,17 +1,12 @@
-import re
-import os
 from fastapi import FastAPI
-from src.models.model import model ,embeddings
-from dotenv import load_dotenv
+from src.models.model import model
 from fastapi.middleware.cors import CORSMiddleware
 from src.utils.get_youtube_transcript import get_youtube_video_id, get_youtube_transcript
 from src.utils.get_chunks_text import get_chunks_text
 from src.utils.get_vectorstore import get_vectorstore
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
-load_dotenv()
 from pydantic import BaseModel
 
 class Url(BaseModel):
@@ -34,7 +29,6 @@ async def fetch_transcript(url: Url):
   
   video_id = get_youtube_video_id(url.url)
   transcript = get_youtube_transcript(url.url, [url.languages])
-  print(transcript)
   
   if not transcript:
     return {"error": f"{get_languages(url.languages)} Transcript not available for this video please select another language."}
@@ -46,9 +40,11 @@ async def fetch_transcript(url: Url):
   if url.query is None or url.query.strip() != "":
     prompt = ChatPromptTemplate.from_template("""You are a helpful assistant that helps people to get answer their quetions base on youtube video transcripts. Use the following context to answer the question at the end...You can generate your own examples to better illustrate your points and make sure code should be in code formate not text.
     warning : 
+    - if the question is not related to the context, politely respond that you are only able to answer questions related to the provided context.
     - output should be clear and concise.
     - if user asked any codding related question provide code snippets.
     - you have ability to understand and answer in different languages based on user query .
+  
     Context: {context}
     Question: {question}
     Answer:""")
@@ -63,7 +59,6 @@ async def fetch_transcript(url: Url):
       | StrOutputParser()  # Parse the output
     )
     response = chain.invoke(url.query)
-    print(response)
     return {"answer": response}
   else:
     return{"error": "Please provide a valid query."}

@@ -9,8 +9,7 @@ model = ChatGoogleGenerativeAI(
 )
 
 embeddings = GoogleGenerativeAIEmbeddings(
-  model="models/gemini-embedding-001",
-  api_key=os.getenv("GEMINI_API_KEY")
+  api_key=os.getenv("GEMINI_API_KEY"),
+  model="models/gemini-embedding-001"
 )
-
 
