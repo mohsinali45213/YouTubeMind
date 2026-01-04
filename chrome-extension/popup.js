@@ -14,7 +14,7 @@ const copyBtn = document.getElementById('copyBtn');
 const statusDiv = document.getElementById('status');
 
 // Backend URL is hardcoded
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://youtubemind.onrender.com';
 
 let currentVideoUrl = null;
 

@@ -24,6 +24,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def root():
+    return {"status": "Backend running"}
+
+
 @app.post("/transcript")
 async def fetch_transcript(url: Url):
   
@@ -80,4 +85,4 @@ def get_languages(code):
         "ko": "Korean",
         # Add more language codes and names as needed
     }
-    return language_map.get(code, "Unknown")
+    return language_map.get(code)
