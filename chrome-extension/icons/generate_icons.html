@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Extension Icons</title>
+</head>
+<body>
+  <h1>Icon Generator</h1>
+  <p>Download these icons and save them in the icons folder:</p>
+  <div>
+    <h3>128x128</h3>
+    <canvas id="canvas128" width="128" height="128"></canvas>
+    <button onclick="downloadIcon(128)">Download icon128.png</button>
+  </div>
+  <div>
+    <h3>48x48</h3>
+    <canvas id="canvas48" width="48" height="48"></canvas>
+    <button onclick="downloadIcon(48)">Download icon48.png</button>
+  </div>
+  <div>
+    <h3>16x16</h3>
+    <canvas id="canvas16" width="16" height="16"></canvas>
+    <button onclick="downloadIcon(16)">Download icon16.png</button>
+  </div>
+
+  <script>
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      
+      // Create gradient background
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      
+      // Draw circle background
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/2 - 2, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Draw white rectangle (video)
+      const rectWidth = size * 0.45;
+      const rectHeight = size * 0.3;
+      const rectX = size * 0.27;
+      const rectY = size * 0.35;
+      
+      ctx.fillStyle = 'white';
+      ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+      
+      // Draw play triangle
+      ctx.fillStyle = '#667eea';
+      ctx.beginPath();
+      const triSize = size * 0.15;
+      const triX = rectX + rectWidth * 0.35;
+      const triY = rectY + rectHeight * 0.5;
+      ctx.moveTo(triX, triY - triSize/2);
+      ctx.lineTo(triX, triY + triSize/2);
+      ctx.lineTo(triX + triSize, triY);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Draw sparkle (AI indicator)
+      if (size >= 48) {
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.arc(size * 0.75, size * 0.27, size * 0.06, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    // Draw all icons
+    drawIcon(document.getElementById('canvas128'), 128);
+    drawIcon(document.getElementById('canvas48'), 48);
+    drawIcon(document.getElementById('canvas16'), 16);
+    
+    function downloadIcon(size) {
+      const canvas = document.getElementById(`canvas${size}`);
+      const link = document.createElement('a');
+      link.download = `icon${size}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>

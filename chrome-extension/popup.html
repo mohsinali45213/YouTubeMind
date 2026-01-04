@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Supporter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎥 YouTube Q&A</h1>
+      <p class="subtitle">Ask questions about this video</p>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="settings">
+      <label for="language">Transcript Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="it">Italian</option>
+        <option value="pt">Portuguese</option>
+        <option value="ru">Russian</option>
+        <option value="ja">Japanese</option>
+        <option value="ko">Korean</option>
+        <option value="zh">Chinese</option>
+        <option value="ar">Arabic</option>
+        <option value="hi">Hindi</option>
+      </select>
+    </div>
+
+    <div class="video-info" id="videoInfo">
+      <p id="videoTitle">No YouTube video detected</p>
+      <small id="videoUrl" style="display: block; margin-top: 5px; opacity: 0.8; font-size: 11px;"></small>
+    </div>
+
+    <div class="question-section">
+      <label for="question">Your Question:</label>
+      <textarea 
+        id="question" 
+        placeholder="Ask anything about this video... (e.g., What is the main topic? Can you provide code examples?)"
+        rows="4"
+      ></textarea>
+      <button id="askBtn" class="btn-primary" disabled>Ask Question</button>
+    </div>
+
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+      <div class="spinner"></div>
+      <p>Processing your question...</p>
+    </div>
+
+    <div id="answerSection" class="answer-section" style="display: none;">
+      <h3>Answer:</h3>
+      <div id="answer" class="answer-content"></div>
+      <button id="copyBtn" class="btn-secondary">📋 Copy Answer</button>
+    </div>
+
+    <div id="errorSection" class="error-section" style="display: none;">
+      <h3>⚠️ Error:</h3>
+      <p id="errorMessage"></p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
